@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--Include p5.js scripts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.10.0/addons/p5.sound.min.js"></script>
+
+    <!--Add Stylesheet-->
+    <link rel="stylesheet" type="text/css" href="css/home.css" />
+
+    <!--include custom scripts-->
+    <!--<script src="scripts/GPC.js"></script>-->
+    <!--Graph Plotter Controller-->
+    <script src="scripts/GraphPlotter.js"></script>
+    <!--Serial Communications Handler-->
+    <script src="scripts/Serial.js"></script>
+    <!--Oscilloscope Settings-->
+    
+
+    <meta charset="utf-8" />
+    <title>Oscilloscope</title>
+  </head>
+  <body>
+  </body>
+  <!--<script src="scripts/oscilloscope-setting.js"></script>
+  <script>console.log(window.settings);</script>-->
+  <script>
+    var settings;
+    window.addEventListener('DOMContentLoaded', (event) => {
+        // Retrieve the settings from localStorage
+        const storedSettings = sessionStorage.getItem('settings');
+        if (storedSettings) {
+            settings = JSON.parse(storedSettings);
+            console.log('Retrieved Settings:', settings);
+            
+            // Now you can use `graphSettings` in your second page
+        } else {
+            console.log('No settings found');
+        }
+    });
+
+    let gp;
+
+    function setup() {
+      pixelDensity(2.5);
+      createCanvas(windowWidth, windowHeight);
+      textSize(16);
+      textFont('Arial');
+
+      gp = new GraphPlotter;
+
+      gp.GraphSetup(settings.drawPoints, settings.drawSubGrid, settings.xAxisTitle, settings.yAxisTitle);
+      gp.GridSetup(settings.minY, settings.maxY, settings.yGap, settings.minX, settings.maxX, settings.xGap);
+      gp.SizeSetup(width, height);
+    }
+
+    function draw() {
+      gp.DrawGrid();
+    }
+  </script>
+</html>
