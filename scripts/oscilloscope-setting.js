@@ -4,7 +4,6 @@ if (!window.settings) {
 
 document.getElementById('settingsForm').addEventListener('submit', async(event) => {
     event.preventDefault();
-    const port = await navigator.serial.requestPort();
     const formData = new FormData(event.target);
     window.settings = {
         drawPoints: formData.get('drawPoints') !== null,
@@ -17,9 +16,9 @@ document.getElementById('settingsForm').addEventListener('submit', async(event) 
         minX: parseInt(formData.get('minX')),
         maxX: parseInt(formData.get('maxX')),
         xGap: parseFloat(formData.get('xGap')),
-        baud: parseInt(formData.get('baudrate')),
-        port: port
+        baud: parseInt(formData.get('baudrate'))
     };
     sessionStorage.setItem('settings', JSON.stringify(settings));
+    //console.log(settings);
     window.location.href = "oscilloscope.html";     
 });

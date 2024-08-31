@@ -8,24 +8,56 @@
     <!--Add Stylesheet-->
     <link rel="stylesheet" type="text/css" href="css/home.css" />
 
-    <!--include custom scripts-->
-    <!--<script src="scripts/GPC.js"></script>-->
     <!--Graph Plotter Controller-->
     <script src="scripts/GraphPlotter.js"></script>
-    <!--Serial Communications Handler-->
-    <script src="scripts/Serial.js"></script>
-    <!--Oscilloscope Settings-->
     
-
     <meta charset="utf-8" />
     <title>Oscilloscope</title>
   </head>
   <body>
+    <button id="connect">Connect</button>
   </body>
-  <!--<script src="scripts/oscilloscope-setting.js"></script>
-  <script>console.log(window.settings);</script>-->
   <script>
     var settings;
+    let myPort;
+
+    async function readAndStoreSerialData(port, onDataCallback) {
+    try {
+        const textDecoder = new TextDecoderStream();
+        const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+        const reader = textDecoder.readable.getReader();
+
+        let buffer = ''; // Buffer to accumulate incoming data
+
+        // Continuously read data from the port
+        while (true) {
+            const { value, done } = await reader.read();
+            if (done) {
+                reader.releaseLock();
+                break;
+            }
+            if (value) {
+                buffer += value; // Append the received chunk to the buffer
+                
+                // Check if the buffer contains a newline character
+                let newlineIndex;
+                while ((newlineIndex = buffer.indexOf('\n')) !== -1) {
+                    // Extract the message up to the newline
+                    const message = buffer.slice(0, newlineIndex).trim();
+
+                    // Process the complete message
+                    onDataCallback(message);
+
+                    // Remove the processed message from the buffer
+                    buffer = buffer.slice(newlineIndex + 1);
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error reading from serial port:', error);
+    }
+}
+
     window.addEventListener('DOMContentLoaded', (event) => {
         // Retrieve the settings from localStorage
         const storedSettings = sessionStorage.getItem('settings');
@@ -38,8 +70,16 @@
             console.log('No settings found');
         }
     });
+    document.getElementById('connect').addEventListener('click', async(event) => {
+      myPort = await navigator.serial.requestPort();
+      await myPort.open({ baudRate: 9600 });
+      readAndStoreSerialData(myPort, DataHandler);
+      console.log("opened port");
+    });
 
     let gp;
+    let readingNo = 0;
+    let a, b, c, d;
 
     function setup() {
       pixelDensity(2.5);
@@ -52,10 +92,39 @@
       gp.GraphSetup(settings.drawPoints, settings.drawSubGrid, settings.xAxisTitle, settings.yAxisTitle);
       gp.GridSetup(settings.minY, settings.maxY, settings.yGap, settings.minX, settings.maxX, settings.xGap);
       gp.SizeSetup(width, height);
+
+      a = new Array(gp.totalPoints);
+      b = new Array(gp.totalPoints);
+      c = new Array(gp.totalPoints);
+      d = new Array(gp.totalPoints);
+
+      gp.DrawGrid();
+    }
+
+    function DataHandler(data) {
+      console.log(data);
+      a[readingNo] = float(data.substring(data.indexOf('a') + 1, data.indexOf('b')));
+      b[readingNo] = float(data.substring(data.indexOf('b') + 1, data.indexOf('c')));
+      c[readingNo] = float(data.substring(data.indexOf('c') + 1, data.indexOf('d')));
+      d[readingNo] = float(data.substring(data.indexOf('d') + 1));
+
+      readingNo = (readingNo + 1) % (gp.totalPoints + 1);
+      draw();
+      if (readingNo == 0) {
+        gp.fillBackground(color(255));
+        gp.DrawGrid();
+        a = new Array(gp.totalPoints);
+        b = new Array(gp.totalPoints);
+        c = new Array(gp.totalPoints);
+        d = new Array(gp.totalPoints);
+      }
     }
 
     function draw() {
-      gp.DrawGrid();
+      gp.DrawGraph(a, color(255, 0, 0));
+      gp.DrawGraph(b, color(0, 0, 255));
+      gp.DrawGraph(c, color(0, 255, 0));
+      gp.DrawGraph(d, color(255, 190, 0));
     }
   </script>
 </html>

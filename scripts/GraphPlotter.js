@@ -236,7 +236,7 @@ class GraphPlotter {
       return yCoord;
     }
     
-    xCo(y) {
+    xCo(x) {
       let xCoord = map(x, this.XMin, this.XMax, 100, this.WidthP - 50);
       return xCoord;
     }
