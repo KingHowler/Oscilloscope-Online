@@ -7,14 +7,33 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            margin-top: 0;
+            padding: 20px; /* Add padding to prevent clipping */
+            box-sizing: border-box;
+            align-items: flex-start; /* Align items to the top */
+            padding-top: 20px; /* Add padding to avoid touching the top */
         }
         form {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
             max-width: 500px;
-            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+            position: static; /* Static positioning to align with the document flow */
+            margin-top: 0; /* Remove top margin */
+            margin-bottom: 20px; /* Optional: Add bottom margin to avoid clipping */
         }
         h2 {
-            color: #333;
+            color: #007acc;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
         }
         label {
             display: block;
@@ -22,7 +41,7 @@
             font-weight: bold;
         }
         input[type="text"], input[type="number"], input[type="checkbox"] {
-            width: 100%;
+            width: calc(100% - 16px); /* Adjust for padding */
             padding: 8px;
             margin-top: 5px;
             box-sizing: border-box;
@@ -33,7 +52,10 @@
             background-color: #007BFF;
             color: #fff;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
         }
         input[type="submit"]:hover {
             background-color: #0056b3;
@@ -78,8 +100,5 @@
     </form>
 
     <script src="scripts/oscilloscope-setting.js"></script>
-    <script>
-        //document.getElementById('settingsForm').addEventListener('submit', function(event) {console.log(settings);});
-    </script>
 </body>
 </html>
