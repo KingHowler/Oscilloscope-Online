@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Plotter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 800px;
+            text-align: center;
+        }
+        .container h1 {
+            font-size: 2.5rem;
+            color: #007acc;
+            margin-bottom: 15px;
+        }
+        .container h2 {
+            font-size: 1.7rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .container h3 {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .container p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #005f99;
+        }
+        .BigFont {
+            font-size: 1.4rem;
+        }
+        @media (max-height: 650px) {
+          body {
+              align-items: flex-start;
+              padding-top: 20px;
+          }
+          .container {
+              position: static;
+              margin: 0 auto;
+          }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Graph Plotter</h1>
+        <h2>Processing Library</h2>
+        <h3>Author: M. Umar Shahbaz</h3>
+        <p>This is a GitHub repository containing a custom library for Processing IDE that draws graphs.</p>
+        <p>To use this library locally you first need to download <a href="https://processing.org/download" style="color:#007acc; text-decoration:none;">Processing IDE</a>. Then you can follow the instructions in the README.md of the GitHub repository to run it as you please. The library is highly customizable and easy to use, you only need to import the <code>GP_unit.pde</code> in your sketch.</p>
+        <p><strong>Note: In the examples folder there is a sketch to draw a graph from a serial port called <code>Serial graph</code>.</strong></p>
+        
+        <div class="buttons">
+            <button class="button" onclick="window.location.href='https://github.com/KingHowler/Graph-Plotter'">Continue</button>
+        </div>
+    </div>
+</body>
+</html>
