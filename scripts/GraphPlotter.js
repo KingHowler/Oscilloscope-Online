@@ -155,10 +155,9 @@ class GraphPlotter {
     }
   
     // Draw the graph
-    DrawGraph(graph, graphColor,) {
+    DrawReading(graph, graphColor,pointNo) {
       stroke(graphColor);
       strokeWeight(2.5);
-      for (let i = 0; i < this.totalPoints - 1; i++) {
         let X1 = 0;
         let X2 = 0;
         let Y1 = 0;
@@ -166,12 +165,12 @@ class GraphPlotter {
         let drawPoints = this.Points;
   
         // Get coordinate of current value
-        let x1 = map(i, 0, this.totalPoints - 1, 100, this.WidthP - 50);
-        let y1 = this.yCo(graph[i]);
+        let x1 = map(pointNo - 1, 0, this.totalPoints - 1, 100, this.WidthP - 50);
+        let y1 = this.yCo(graph[pointNo - 1]);
   
         // Get coordinate of next value
-        let x2 = map(i + 1, 0, this.totalPoints - 1, 100, this.WidthP - 50);
-        let y2 = this.yCo(graph[i + 1]);
+        let x2 = map(pointNo, 0, this.totalPoints - 1, 100, this.WidthP - 50);
+        let y2 = this.yCo(graph[pointNo]);
   
         // Calculate Gradient for filtering lines
         let m = (y2 - y1) / (x2 - x1);
@@ -213,7 +212,6 @@ class GraphPlotter {
           drawPoints = false;
         }
         this.DrawSegment(drawPoints, X1, Y1, X2, Y2);
-      }
     }
   
     // Draw a straight line segment from one point to another; also uses boolean to decide whether to draw points on ends of the segment

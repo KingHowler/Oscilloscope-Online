@@ -108,8 +108,9 @@
       c[readingNo] = float(data.substring(data.indexOf('c') + 1, data.indexOf('d')));
       d[readingNo] = float(data.substring(data.indexOf('d') + 1));
 
-      readingNo = (readingNo + 1) % (gp.totalPoints + 1);
       draw();
+      readingNo = (readingNo + 1) % (gp.totalPoints + 1);
+      
       if (readingNo == 0) {
         gp.fillBackground(color(255));
         gp.DrawGrid();
@@ -121,10 +122,10 @@
     }
 
     function draw() {
-      gp.DrawGraph(a, color(255, 0, 0));
-      gp.DrawGraph(b, color(0, 0, 255));
-      gp.DrawGraph(c, color(0, 255, 0));
-      gp.DrawGraph(d, color(255, 190, 0));
+      gp.DrawReading(a, color(255, 0, 0), readingNo);
+      gp.DrawReading(b, color(0, 0, 255), readingNo);
+      gp.DrawReading(c, color(0, 255, 0), readingNo);
+      gp.DrawReading(d, color(255, 190, 0), readingNo);
     }
   </script>
 </html>
