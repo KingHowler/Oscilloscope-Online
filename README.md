@@ -4,7 +4,7 @@
   # Oscilloscope-Online
 </div>
 
-## Pupose
+## Purpose
 To create a tool that can show live data from experimentations with a wide variety of customizable options. The project is useful for assisting in research works.
 
 ## Description
@@ -35,8 +35,8 @@ You can find the Oscilloscope [here](https://kinghowler.github.io/Oscilloscope-O
 - Custom colors for each graphs
 - Resolution Slider
 
-## Exapmle usage
-**Reviewing the effects of changing the resistances of a fixed resistor on the sensitivty of an LDR Potential Divider**
+## Example usage
+**Reviewing the effects of changing the resistances of a fixed resistor on the sensitivity of an LDR Potential Divider**
 ### The experiment
 - Changing the fixed resistor in a LDR potential divider can change the sensitivity of the detection of the light intensity
 - In this experiment I have used 4 different fixed Resistor values
