@@ -80,7 +80,25 @@
 
     let gp;
     let readingNo = 0;
-    let a, b, c, d;
+    let graphs = [];
+    let graphColors = [
+      color(255, 0, 0),
+      color(0, 0, 255),
+      color(0, 255, 0),
+      color(255, 190, 0),
+      color(255, 0, 255),
+      color(0, 255, 255),
+      color(128, 0, 128),
+      color(102, 85, 0),
+    ];
+    //let a, b, c, d;
+
+    function resetGraphs() {
+      graphs = [];
+      for (let i = 0; i < settings.noGraphs; i++) {
+        graphs.push(new Array(gp.totalPoints));
+      }
+    }
 
     function setup() {
       pixelDensity(2.5);
@@ -94,20 +112,28 @@
       gp.GridSetup(settings.minY, settings.maxY, settings.yGap, settings.minX, settings.maxX, settings.xGap);
       gp.SizeSetup(width, height);
 
-      a = new Array(gp.totalPoints);
+      resetGraphs();
+
+      /*a = new Array(gp.totalPoints);
       b = new Array(gp.totalPoints);
       c = new Array(gp.totalPoints);
-      d = new Array(gp.totalPoints);
+      d = new Array(gp.totalPoints);*/
 
       gp.DrawGrid();
     }
 
     function DataHandler(data) {
       console.log(data);
-      a[readingNo] = float(data.substring(data.indexOf('a') + 1, data.indexOf('b')));
+      /*a[readingNo] = float(data.substring(data.indexOf('a') + 1, data.indexOf('b')));
       b[readingNo] = float(data.substring(data.indexOf('b') + 1, data.indexOf('c')));
       c[readingNo] = float(data.substring(data.indexOf('c') + 1, data.indexOf('d')));
-      d[readingNo] = float(data.substring(data.indexOf('d') + 1));
+      d[readingNo] = float(data.substring(data.indexOf('d') + 1));*/
+
+      valArray = data.split(settings.brChar);
+
+      for (let i = 0; i < settings.noGraphs; i++) {
+        graphs[i].push(valArray[i]);
+      }
 
       draw();
       readingNo = (readingNo + 1) % (gp.totalPoints + 1);
@@ -115,18 +141,24 @@
       if (readingNo == 0) {
         gp.fillBackground(color(255));
         gp.DrawGrid();
-        a = new Array(gp.totalPoints);
+        /*a = new Array(gp.totalPoints);
         b = new Array(gp.totalPoints);
         c = new Array(gp.totalPoints);
-        d = new Array(gp.totalPoints);
+        d = new Array(gp.totalPoints);*/
+
+        resetGraphs();
       }
     }
 
     function draw() {
-      gp.DrawReading(a, color(255, 0, 0), readingNo);
+      for (let i = 0; i < settings.noGraphs; i++) {
+        gp.DrawReading(graphs[i], graphColors[i], readingNo);
+      }
+
+      /*gp.DrawReading(a, color(255, 0, 0), readingNo);
       gp.DrawReading(b, color(0, 0, 255), readingNo);
       gp.DrawReading(c, color(0, 255, 0), readingNo);
-      gp.DrawReading(d, color(255, 190, 0), readingNo);
+      gp.DrawReading(d, color(255, 190, 0), readingNo);*/
     }
   </script>
 </html>

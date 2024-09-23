@@ -66,6 +66,12 @@
 <body>
     <form id="settingsForm">
         <h2>Graph Settings</h2>
+        <label for="noGraphs">Number of Graphs to plot</label>
+        <input type="number" id="noGraphs" name="noGraphs" value="4" min="1" max="8" step="1" required>
+
+        <label for="brChar">Isolator</label>
+        <input type="text" id="brChar" name="brChar" value="/" maxlength="1" required>
+
         <label for="drawPoints">Draw Points?</label>
         <input type="checkbox" id="drawPoints" name="drawPoints">
 
