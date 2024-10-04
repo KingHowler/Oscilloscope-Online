@@ -73,7 +73,7 @@
     });
     document.getElementById('connect').addEventListener('click', async(event) => {
       myPort = await navigator.serial.requestPort();
-      await myPort.open({ baudRate: 9600 });
+      await myPort.open({ baudRate: settings.baud });
       readAndStoreSerialData(myPort, DataHandler);
       console.log("opened port");
     });
